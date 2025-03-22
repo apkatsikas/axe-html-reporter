@@ -2,6 +2,7 @@ import { AxeReport, FixSummary, Summary } from './AxeReport';
 import { getWcagReference } from './getWcagReference';
 import { PreparedResults } from '../index';
 import { Result } from 'axe-core';
+import * as crypto from 'crypto';
 
 function simplifyAxeResultForSummary(results: Result[]): Summary[] {
     return results.map(({ nodes, description, help, id, tags, impact }, resultIndex) => ({
@@ -96,6 +97,7 @@ export function prepareReportData({
 
                     return {
                         targetNodes,
+                        targetNodesHash: generateUrlSafeHash(targetNodes),
                         html,
                         fixSummaries,
                         relatedNodesAny,
@@ -115,3 +117,16 @@ export function prepareReportData({
         checksInapplicable: inapplicableChecks,
     };
 }
+
+function generateUrlSafeHash(input: string) {
+    // Create a hash using sha256 (you can use other algorithms like sha512)
+    const hash = crypto.createHash('sha256').update(input).digest('base64');
+  
+    // Convert the Base64 hash to a URL-safe version by replacing `+`, `/`, and `=`
+    const urlSafeHash = hash
+      .replace(/\+/g, '-')  // Replace `+` with `-`
+      .replace(/\//g, '_')  // Replace `/` with `_`
+      .replace(/=+$/, '');  // Remove trailing `=` characters
+  
+    return urlSafeHash;
+  }

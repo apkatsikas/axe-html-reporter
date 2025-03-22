@@ -30,7 +30,7 @@
     },
     "homepage": "https://github.com/lpelypenko/axe-html-reporter",
     "scripts": {
-        "prebuild": "rm -rf dist build",
+        "prebuild": "rmdir /s /q dist build 2>nul",
         "copy": "cp -R ./src/util/template ./dist/util/template",
         "build": "tsc --project tsconfig.build.json && npm run copy",
         "test": "jest test",
