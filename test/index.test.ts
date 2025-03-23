@@ -330,7 +330,7 @@ describe('Successful tests', () => {
         fs.rmSync(getPathToCreatedReport(reportFileName), {
             force: true,
         });
-        const reportHTML = createHtmlReport({
+        const reportHTML = await createHtmlReport({
             results: rawAxeResults,
             options: {
                 projectKey: 'I need only raw HTML',
