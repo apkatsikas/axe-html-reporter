@@ -4,6 +4,7 @@ import { loadTemplate } from './util/loadTemplate';
 import { prepareReportData } from './util/prepareReportData';
 import { prepareAxeRules } from './util/prepareAxeRules';
 import { saveHtmlReport } from './util/saveHtmlReport';
+import { prepareExternalResources } from './util/prepareExternalResources';
 
 const styleSheets: StyleSheets = [
     {
@@ -33,7 +34,7 @@ const scripts: Scripts = [
     },
 ];
 
-interface ExternalResource {
+export interface ExternalResource {
     link: string;
     integrity?: string;
 }
@@ -48,6 +49,7 @@ export interface Options {
     customSummary?: string;
     outputDirPath?: string;
     doNotCreateReportFile?: boolean;
+    serveExternalResources?: boolean;
 }
 
 export interface CreateReport {
@@ -94,8 +96,8 @@ export function createHtmlReport({ results, options }: CreateReport): string {
             customSummary: options?.customSummary,
             hasAxeRawResults: Boolean(results?.timestamp),
             rules: prepareAxeRules(results?.toolOptions?.rules || {}),
-            scripts,
-            styleSheets
+            scripts: prepareExternalResources(scripts, options?.serveExternalResources),
+            styleSheets: prepareExternalResources(styleSheets, options?.serveExternalResources)
         });
         if (!options || options.doNotCreateReportFile === undefined || !options.doNotCreateReportFile) {
             saveHtmlReport({
