@@ -18,7 +18,7 @@ If only HTML content needed, user can pass `doNotCreateReportFile: true` to stop
 Suggestion on how to use this library if you don't need a report file but need only HTML it produces: 
 
 ```javascript
-const reportHTML = createHtmlReport({
+const reportHTML = await createHtmlReport({
     results: rawAxeResults,
     options: {
         projectKey: 'I need only raw HTML',

@@ -33,7 +33,7 @@ describe('Error handling', () => {
                     passes: [],
                 },
             });
-        }).rejects.toThrow(
+        }).rejects.toEqual(
             "'violations' is required for HTML accessibility report. Example: createHtmlReport({ results : { violations: Result[] } })"
         );
     });
