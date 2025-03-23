@@ -31,7 +31,7 @@ export interface PreparedResults {
 
 export async function createHtmlReport({ results, options }: CreateReport): Promise<string> {
     if (!results.violations) {
-        throw new Error(
+        return Promise.reject(
             "'violations' is required for HTML accessibility report. Example: createHtmlReport({ results : { violations: Result[] } })"
         );
     }

@@ -26,14 +26,14 @@ function getPathToReportFolder(customOutputDir?: string) {
 
 describe('Error handling', () => {
     it('Verify throwing an error if required parameters are not passed', async () => {
-        expect(() => {
-            createHtmlReport({
+        expect(async () => {
+            await createHtmlReport({
                 // @ts-ignore
                 results: {
                     passes: [],
                 },
             });
-        }).toThrow(
+        }).rejects.toThrow(
             "'violations' is required for HTML accessibility report. Example: createHtmlReport({ results : { violations: Result[] } })"
         );
     });
