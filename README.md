@@ -35,6 +35,14 @@ if (!fs.existsSync('build/reports/saveReportHere.html')) {
 fs.writeFileSync('build/reports/saveReportHere.html', reportHTML);
 ```
 
+If you want to serve the external HTML resources (i.e. css, JS) yourself, you can:
+
+```javascript
+await createHtmlReport({ results: 'AxeCoreResults', options: { serveResources: true } }); 
+```
+
+The `serveResources` option will download the required assets if they do not already exist in the output directory, in addition to ensuring the report points to the local version of these resources.
+
 ## Install
 
 ```
