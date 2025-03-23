@@ -4,43 +4,8 @@ import { loadTemplate } from './util/loadTemplate';
 import { prepareReportData } from './util/prepareReportData';
 import { prepareAxeRules } from './util/prepareAxeRules';
 import { saveHtmlReport } from './util/saveHtmlReport';
-import { prepareExternalResources } from './util/prepareExternalResources';
-
-const styleSheets: StyleSheets = [
-    {
-        link: 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css',
-        integrity: 'sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z'
-    },
-    {
-        link: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/stackoverflow-light.min.css',
-    }
-];
-
-const scripts: Scripts = [
-    {
-        link: 'https://code.jquery.com/jquery-3.2.1.slim.min.js',
-        integrity: 'sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN'
-    },
-    {
-        link: 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js',
-        integrity: 'sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q'
-    },
-    {
-        link: 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js',
-        integrity: 'sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl'
-    },
-    {
-        link: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js',
-    },
-];
-
-export interface ExternalResource {
-    link: string;
-    integrity?: string;
-}
-
-type StyleSheets = ExternalResource[];
-type Scripts = ExternalResource[];
+import { prepareResources } from './util/prepareExternalResources';
+import { scripts, styleSheets } from './externalResources';
 
 export interface Options {
     reportFileName?: string;
@@ -49,7 +14,7 @@ export interface Options {
     customSummary?: string;
     outputDirPath?: string;
     doNotCreateReportFile?: boolean;
-    serveExternalResources?: boolean;
+    serveResources?: boolean;
 }
 
 export interface CreateReport {
@@ -96,15 +61,16 @@ export function createHtmlReport({ results, options }: CreateReport): string {
             customSummary: options?.customSummary,
             hasAxeRawResults: Boolean(results?.timestamp),
             rules: prepareAxeRules(results?.toolOptions?.rules || {}),
-            scripts: prepareExternalResources(scripts, options?.serveExternalResources),
-            styleSheets: prepareExternalResources(styleSheets, options?.serveExternalResources)
+            scripts: prepareResources(scripts, options?.serveResources),
+            styleSheets: prepareResources(styleSheets, options?.serveResources)
         });
         if (!options || options.doNotCreateReportFile === undefined || !options.doNotCreateReportFile) {
             saveHtmlReport({
                 htmlContent,
                 reportFileName: options?.reportFileName,
                 outputDir: options?.outputDir,
-                outputDirPath: options?.outputDirPath
+                outputDirPath: options?.outputDirPath,
+                serveResources: options?.serveResources
             });
         }
 

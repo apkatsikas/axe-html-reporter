@@ -66,7 +66,7 @@
             {{#integrity}}
         <link
             rel="stylesheet"
-            href="{{link}}"
+            href="{{path}}"
             integrity="{{integrity}}"
             crossorigin="anonymous"
         />
@@ -74,21 +74,21 @@
             {{^integrity}}
         <link
             rel="stylesheet"
-            href="{{link}}"
+            href="{{path}}"
         />
             {{/integrity}}
         {{/styleSheets}}
         {{#scripts}}
             {{#integrity}}
         <script
-            src="{{link}}"
+            src="{{path}}"
             integrity="{{integrity}}"
             crossorigin="anonymous"
         ></script>
         {{/integrity}}
         {{^integrity}}
         <script
-            src="{{link}}"
+            src="{{path}}"
         ></script>
             {{/integrity}}
         {{/scripts}}

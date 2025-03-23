@@ -1,20 +1,20 @@
-import { ExternalResource } from "..";
+import { Resource } from "../externalResources";
 
-export function prepareExternalResources(
-    externalResources: ExternalResource[], 
-    serveExternalResources: boolean | undefined
-  ): ExternalResource[] {
-    if (!serveExternalResources) {
-        return externalResources;
+export function prepareResources(
+    resources: Resource[], 
+    serveResources: boolean | undefined
+  ): Resource[] {
+    if (!serveResources) {
+        return resources;
     }
-    return serveResource(externalResources);
+    return serveResource(resources);
 }
 
-function serveResource(externalResources: ExternalResource[]): ExternalResource[] {
-    return externalResources.map(resource => {
-        const link = resource.link.substring(resource.link.lastIndexOf("/") + 1);
+function serveResource(resources: Resource[]): Resource[] {
+    return resources.map(resource => {
+        const path = resource.path.substring(resource.path.lastIndexOf("/") + 1);
         return {
-            link: link
+            path
         };
     });
 }
