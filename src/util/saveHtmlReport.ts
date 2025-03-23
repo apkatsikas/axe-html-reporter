@@ -1,7 +1,6 @@
-import fs, { existsSync, writeFileSync } from 'fs';
-import { Resource, scripts, styleSheets } from '../externalResources';
-import https from 'https';
-import { basename, join } from 'path';
+import fs from 'fs';
+import { scripts, styleSheets } from '../externalResources';
+import downloadAndVerifyResource from './downloadAndVerifyResources';
 
 export const defaultReportFileName = 'accessibilityReport.html';
 
@@ -33,11 +32,9 @@ export function saveHtmlReport({
         }
 
         if (serveResources) {
-            for (var styleSheet of styleSheets) {
-                downloadAndVerifyResource(styleSheet, reportDirectory);
-            }
-            for (var script of scripts) {
-                downloadAndVerifyResource(script, reportDirectory);
+            const resources = [...styleSheets, ...scripts];
+            for (var resource of resources) {
+                downloadAndVerifyResource(resource, reportDirectory);
             }
         }
 
@@ -47,51 +44,4 @@ export function saveHtmlReport({
     } catch (err) {
         console.error(`Error happened while trying to save html report. ${err}`);
     }
-}
-
-function downloadAndVerifyResource(resource: Resource, reportDirectory: string): Promise<void> {
-    const filePath = join(reportDirectory, basename(resource.path));
-
-    if (existsSync(filePath)) {
-        return Promise.resolve();
-    }
-    return new Promise((resolve, reject) => {
-        https.get(resource.path, (response) => {
-            if (response.statusCode !== 200) {
-                return reject(new Error(`Failed to download from ${resource.path}. Status: ${response.statusCode}`));
-            }
-
-            let data = '';
-
-            // Collect the response data
-            response.on('data', (chunk) => {
-                data += chunk;
-            });
-
-            response.on('end', () => {
-                if (resource.integrity) {
-                    const integrityValid = verifyIntegrity(data, resource.integrity);
-                    if (!integrityValid) {
-                        return reject(new Error(`Integrity check failed for ${resource.path}`));
-                    }
-                }
-
-                writeFileSync(filePath, data);
-                resolve();
-            });
-
-            response.on('error', (err) => {
-                reject(new Error(`Error downloading resource: ${err.message}`));
-            });
-        });
-    });
-}
-
-async function verifyIntegrity(content: string, expectedIntegrity: string): Promise<boolean> {
-    const crypto = require('crypto');
-    const hash = crypto.createHash('sha384');
-    hash.update(content);
-    const calculatedHash = hash.digest('base64');
-
-    return calculatedHash === expectedIntegrity;
 }

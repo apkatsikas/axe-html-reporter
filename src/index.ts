@@ -4,7 +4,7 @@ import { loadTemplate } from './util/loadTemplate';
 import { prepareReportData } from './util/prepareReportData';
 import { prepareAxeRules } from './util/prepareAxeRules';
 import { saveHtmlReport } from './util/saveHtmlReport';
-import { prepareResources } from './util/prepareExternalResources';
+import { prepareResources } from './util/prepareResources';
 import { scripts, styleSheets } from './externalResources';
 
 export interface Options {
