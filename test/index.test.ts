@@ -1,4 +1,6 @@
 import { createHtmlReport } from '../src';
+import { scripts, styleSheets } from '../src/externalResources';
+import { prepareResources } from '../src/util/prepareResources';
 import { defaultReportFileName } from '../src/util/saveHtmlReport';
 import fs from 'fs';
 import path from 'path';
@@ -10,9 +12,15 @@ const rawAxeResults = require('./rawAxeResults.json');
 
 function getPathToCreatedReport(customFileName?: string, customOutputDir?: string) {
     return path.resolve(
-        process.cwd(),
-        customOutputDir ? customOutputDir : 'artifacts',
+        getPathToReportFolder(customOutputDir),
         customFileName ? customFileName : defaultReportFileName
+    );
+}
+
+function getPathToReportFolder(customOutputDir?: string) {
+    return path.resolve(
+        process.cwd(),
+        customOutputDir ? customOutputDir : 'artifacts'
     );
 }
 
@@ -255,6 +263,15 @@ describe('Successful tests', () => {
         fs.rmSync(getPathToCreatedReport(reportFileName), {
             force: true,
         });
+
+        const resources = [...styleSheets, ...scripts];
+        const reportDirectory = getPathToReportFolder();
+        for (var resource of prepareResources(resources, true)) {
+            fs.rmSync(`${reportDirectory}/${resource.path}`, {
+                force: true,
+            });
+        }
+
         const customSummary = `Test Case: Full page analysis
         <br>Steps:</br>
         <ol style="margin: 0">
@@ -262,7 +279,7 @@ describe('Successful tests', () => {
         <li>Analyze full page with all rules enabled</li>
         </ol>`;
 
-        createHtmlReport({
+        await createHtmlReport({
             results: {
                 violations: axeRawViolations,
                 passes: axeRawPassed,

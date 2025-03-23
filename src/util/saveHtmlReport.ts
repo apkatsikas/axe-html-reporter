@@ -16,13 +16,13 @@ interface SaveReportOptions {
  * @param htmlContent
  * @param fileName
  */
-export function saveHtmlReport({
+export async function saveHtmlReport({
     htmlContent,
     reportFileName,
     outputDir,
     outputDirPath = process.cwd(),
     serveResources
-}: SaveReportOptions): void {
+}: SaveReportOptions): Promise<void> {
     try {
         const reportDirectory = `${outputDirPath}/${outputDir || 'artifacts'}`;
         if (!fs.existsSync(reportDirectory)) {
@@ -34,7 +34,7 @@ export function saveHtmlReport({
         if (serveResources) {
             const resources = [...styleSheets, ...scripts];
             for (var resource of resources) {
-                downloadAndVerifyResource(resource, reportDirectory);
+                await downloadAndVerifyResource(resource, reportDirectory);
             }
         }
 

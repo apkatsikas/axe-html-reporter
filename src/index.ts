@@ -29,7 +29,7 @@ export interface PreparedResults {
     inapplicable?: Result[];
 }
 
-export function createHtmlReport({ results, options }: CreateReport): string {
+export async function createHtmlReport({ results, options }: CreateReport): Promise<string> {
     if (!results.violations) {
         throw new Error(
             "'violations' is required for HTML accessibility report. Example: createHtmlReport({ results : { violations: Result[] } })"
@@ -65,7 +65,7 @@ export function createHtmlReport({ results, options }: CreateReport): string {
             styleSheets: prepareResources(styleSheets, options?.serveResources)
         });
         if (!options || options.doNotCreateReportFile === undefined || !options.doNotCreateReportFile) {
-            saveHtmlReport({
+            await saveHtmlReport({
                 htmlContent,
                 reportFileName: options?.reportFileName,
                 outputDir: options?.outputDir,
