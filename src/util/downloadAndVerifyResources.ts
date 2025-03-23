@@ -41,7 +41,7 @@ export default function downloadAndVerifyResource(resource: Resource, reportDire
 }
 
 async function verifyIntegrity(content: string, expectedIntegrity: string): Promise<boolean> {
-    const hash = crypto.createHash('sha384');
+    const hash = crypto.createHash('sha256');
     hash.update(content);
     const calculatedHash = hash.digest('base64');
 
