@@ -7,7 +7,10 @@ export function prepareExternalResources(
     if (!serveExternalResources) {
         return externalResources;
     }
+    return serveResource(externalResources);
+}
 
+function serveResource(externalResources: ExternalResource[]): ExternalResource[] {
     return externalResources.map(resource => {
         const link = resource.link.substring(resource.link.lastIndexOf("/") + 1);
         return {
