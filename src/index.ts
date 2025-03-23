@@ -5,7 +5,7 @@ import { prepareReportData } from './util/prepareReportData';
 import { prepareAxeRules } from './util/prepareAxeRules';
 import { saveHtmlReport } from './util/saveHtmlReport';
 import { prepareResources } from './util/prepareResources';
-import { scripts, styleSheets } from './externalResources';
+import { scripts, styleSheets } from './resources';
 
 export interface Options {
     reportFileName?: string;

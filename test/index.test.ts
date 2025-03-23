@@ -1,5 +1,5 @@
 import { createHtmlReport } from '../src';
-import { scripts, styleSheets } from '../src/externalResources';
+import { scripts, styleSheets } from '../src/resources';
 import { prepareResources } from '../src/util/prepareResources';
 import { defaultReportFileName } from '../src/util/saveHtmlReport';
 import fs from 'fs';

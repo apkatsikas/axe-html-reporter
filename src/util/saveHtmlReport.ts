@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { scripts, styleSheets } from '../externalResources';
+import { scripts, styleSheets } from '../resources';
 import downloadAndVerifyResource from './downloadAndVerifyResources';
 
 export const defaultReportFileName = 'accessibilityReport.html';

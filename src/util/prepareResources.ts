@@ -1,4 +1,4 @@
-import { Resource } from "../externalResources";
+import { Resource } from "../resources";
 
 export function prepareResources(
     resources: Resource[], 

@@ -1,5 +1,5 @@
 import { existsSync, writeFileSync } from 'fs';
-import { Resource } from '../externalResources';
+import { Resource } from '../resources';
 import https from 'https';
 import { basename, join } from 'path';
 import crypto from 'crypto';
