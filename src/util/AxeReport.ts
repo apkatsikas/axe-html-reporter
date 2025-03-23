@@ -9,7 +9,7 @@ export interface Summary {
 
 export interface FixSummary {
     highlight: string;
-    list?: string[]
+    list?: string[];
 }
 
 interface NodeResult {
@@ -17,7 +17,8 @@ interface NodeResult {
     targetNodes: string;
     fixSummaries: FixSummary[];
     index: number;
-    relatedNodesAny: string[]
+    relatedNodesAny: string[];
+    violationIndex: number;
 }
 
 interface Details {
