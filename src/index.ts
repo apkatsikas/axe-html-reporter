@@ -15,6 +15,7 @@ export interface Options {
     outputDirPath?: string;
     doNotCreateReportFile?: boolean;
     serveResources?: boolean;
+    attachScreenshots?: boolean;
 }
 
 export interface CreateReport {
@@ -62,7 +63,8 @@ export async function createHtmlReport({ results, options }: CreateReport): Prom
             hasAxeRawResults: Boolean(results?.timestamp),
             rules: prepareAxeRules(results?.toolOptions?.rules || {}),
             scripts: prepareResources(scripts, options?.serveResources),
-            styleSheets: prepareResources(styleSheets, options?.serveResources)
+            styleSheets: prepareResources(styleSheets, options?.serveResources),
+            attachScreenshots: options?.attachScreenshots,
         });
         if (!options || options.doNotCreateReportFile === undefined || !options.doNotCreateReportFile) {
             await saveHtmlReport({

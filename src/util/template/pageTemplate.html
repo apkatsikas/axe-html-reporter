@@ -192,7 +192,9 @@
                                         <pre><code class="css text-wrap">{{targetNodes}}</code></pre>
                                         <p><strong>Element source</strong></p>
                                         <pre><code class="html text-wrap">{{html}}</code></pre>
-                                        <img src="screenshots/{{violationIndex}}_{{index}}.png" />
+                                        {{#attachScreenshots}}
+                                        <img src="screenshots/violation_{{violationIndex}}_{{index}}.png" />
+                                        {{/attachScreenshots}}
                                     </td>
                                     <td>
                                         {{#fixSummaries}}
