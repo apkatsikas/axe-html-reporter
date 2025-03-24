@@ -1,5 +1,10 @@
 # axe-html-reporter
 
+### TODO
+update snapshots via `npx jest -u`
+make option flag for embedding screenshots
+update README
+
 Creates an HTML report from Axe-core® library AxeResults object listing violations, passes, incomplete and incompatible results.
 
 Allows specifying report creation options: `reportFileName`, `outputDir`, `outputDirPath`, `projectKey` and `customSummary`.
