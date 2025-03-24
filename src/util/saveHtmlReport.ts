@@ -33,9 +33,8 @@ export async function saveHtmlReport({
 
         if (serveResources) {
             const resources = [...styleSheets, ...scripts];
-            for (var resource of resources) {
-                await downloadAndVerifyResource(resource, reportDirectory);
-            }
+            const downloadPromises = resources.map(resource => downloadAndVerifyResource(resource, reportDirectory));
+            await Promise.all(downloadPromises);
         }
 
         const reportFilePath = `${reportDirectory}/${reportFileName || defaultReportFileName}`;
