@@ -1,9 +1,7 @@
 # axe-html-reporter
 
 ### TODO
-update snapshots via `npx jest -u`
-make option flag for embedding screenshots
-update README
+update README for screenshot option
 
 Creates an HTML report from Axe-core® library AxeResults object listing violations, passes, incomplete and incompatible results.
 
