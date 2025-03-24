@@ -1,8 +1,5 @@
 # axe-html-reporter
 
-### TODO
-update README for screenshot option
-
 Creates an HTML report from Axe-core® library AxeResults object listing violations, passes, incomplete and incompatible results.
 
 Allows specifying report creation options: `reportFileName`, `outputDir`, `outputDirPath`, `projectKey` and `customSummary`.
@@ -38,6 +35,7 @@ if (!fs.existsSync('build/reports/saveReportHere.html')) {
 fs.writeFileSync('build/reports/saveReportHere.html', reportHTML);
 ```
 
+## Serving resources
 If you want to serve the external HTML resources (i.e. css, JS) yourself, you can:
 
 ```javascript
@@ -45,6 +43,16 @@ await createHtmlReport({ results: 'AxeCoreResults', options: { serveResources: t
 ```
 
 The `serveResources` option will download the required assets if they do not already exist in the output directory, in addition to ensuring the report points to the local version of these resources.
+
+## Attaching element screenshots
+You can attach element screenshots by setting `attachScreenshots` to true.
+
+```javascript
+await createHtmlReport({ results: 'AxeCoreResults', options: { attachScreenshots: true } }); 
+```
+
+Files should be placed in the following directory/pattern:
+`screenshots/violation_{{violationIndex}}_{{index}}.png`
 
 ## Install
 
