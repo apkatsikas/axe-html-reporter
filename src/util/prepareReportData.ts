@@ -100,6 +100,7 @@ export function prepareReportData({
                         fixSummaries,
                         relatedNodesAny,
                         index: nodeIndex + 1,
+                        violationIndex: issueIndex + 1,
                     };
                 }),
             };
