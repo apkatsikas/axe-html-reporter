@@ -296,6 +296,35 @@ describe('Successful tests', () => {
         ).toMatchSnapshot();
     });
 
+    it('All optional parameters present, attaching screenshot', async () => {
+        const reportFileName = 'tcScreenshots.html';
+        fs.rmSync(getPathToCreatedReport(reportFileName), {
+            force: true,
+        });
+        const customSummary = `Test Case: Full page analysis
+        <br>Steps:</br>
+        <ol style="margin: 0">
+        <li>Open https://dequeuniversity.com/demo/mars/</li>
+        <li>Analyze full page with all rules enabled</li>
+        </ol>`;
+
+        createHtmlReport({
+            results: {
+                violations: axeRawViolations,
+                passes: axeRawPassed,
+                incomplete: [],
+                inapplicable: axeRawInapplicable,
+                url: 'https://dequeuniversity.com/demo/mars/',
+            },
+            options: { projectKey: 'DEQUE', customSummary, reportFileName, attachScreenshots: true },
+        });
+        expect(
+            fs.readFileSync(getPathToCreatedReport(reportFileName), {
+                encoding: 'utf8',
+            })
+        ).toMatchSnapshot();
+    });
+
     it('Raw AxeResults passed and all optional params', async () => {
         const customSummary = `Test Case: Full page analysis
         <br>Steps:</br>
