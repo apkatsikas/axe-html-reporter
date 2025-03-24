@@ -1,4 +1,4 @@
-import mustache from 'mustache';
+import * as mustache from 'mustache';
 import { AxeResults, Result } from 'axe-core';
 import { loadTemplate } from './util/loadTemplate';
 import { prepareReportData } from './util/prepareReportData';
