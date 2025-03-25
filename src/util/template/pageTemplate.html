@@ -61,6 +61,13 @@
             li {
                 line-height: 1.618;
             }
+            .fallback-text {
+                display: none;
+            }
+            img {
+                max-width: 50vw;
+                height: auto;
+            }
         </style>
         {{#styleSheets}}
             {{#integrity}}
@@ -195,6 +202,7 @@
                                         {{#attachScreenshots}}
                                         <p><strong>Element screenshot</strong></p>
                                         <img alt="Element screenshot of violation: {{violationIndex}}, element: {{index}}" src="screenshots/violation_{{violationIndex}}_{{index}}.png" />
+                                        <span class="fallback-text">Screenshot not available</span>
                                         {{/attachScreenshots}}
                                     </td>
                                     <td>
