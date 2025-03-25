@@ -113,7 +113,12 @@
                     <a href="{{url}}" target="_blank" class="card-link">{{url}}</a>
                     <br />
                 </div>
-                {{/url}} {{#customSummary}}
+                {{/url}}
+                {{#attachScreenshots}}
+                <p style="margin-top: 10px;"><strong>Page screenshot</strong></p>
+                <img style="margin-bottom: 10px;" alt="Summary screenshot" src="screenshots/{{projectKey}}.png" />
+                {{/attachScreenshots}}
+                {{#customSummary}}
                 <div class="summary">{{{customSummary}}}</div>
                 {{/customSummary}}
             </div>
