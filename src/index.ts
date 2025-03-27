@@ -16,6 +16,7 @@ export interface Options {
     doNotCreateReportFile?: boolean;
     serveResources?: boolean;
     attachScreenshots?: boolean;
+    projectId?: string;
 }
 
 export interface CreateReport {
@@ -65,6 +66,7 @@ export async function createHtmlReport({ results, options }: CreateReport): Prom
             scripts: prepareResources(scripts, options?.serveResources),
             styleSheets: prepareResources(styleSheets, options?.serveResources),
             attachScreenshots: options?.attachScreenshots,
+            projectId: options?.projectId
         });
         if (!options || options.doNotCreateReportFile === undefined || !options.doNotCreateReportFile) {
             await saveHtmlReport({
