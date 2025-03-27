@@ -58,7 +58,7 @@ export function prepareReportData({
             checksInapplicable: inapplicableChecks,
         };
     }
-    const violationsSummary = `axe-core found <span class="badge badge-warning">${violationsTotal}</span> violation${
+    const violationsSummary = `Found <span class="badge badge-warning">${violationsTotal}</span> violation${
         violationsTotal === 1 ? '' : 's'
     }`;
     // Prepare data to show summary
